@@ -5,6 +5,7 @@ import { CAMARAS, ZONAS } from "@/lib/camaras";
 import type { Incidencia } from "@/lib/datex";
 import CamaraCard from "./CamaraCard";
 import IncidentBanner from "./IncidentBanner";
+import SalidaColmenar from "./SalidaColmenar";
 
 const REFRESH_MS = 90_000;
 
@@ -80,6 +81,7 @@ export default function Dashboard() {
           <h2 className="px-1 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
             {zona}
           </h2>
+          {zona === "Colmenar Viejo" && <SalidaColmenar />}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {CAMARAS.filter((c) => c.zona === zona).map((camara) => (
               <CamaraCard key={camara.id} camara={camara} tick={tick} />

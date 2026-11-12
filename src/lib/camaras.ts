@@ -41,7 +41,7 @@ export const CAMARAS: Camara[] = [
     pk: 31.9,
     nombre: "Colmenar Viejo Centro",
     zona: "Colmenar Viejo",
-    nota: "Enlace de acceso al centro",
+    nota: "Junto al enlace de Prado Bastero (salida desde la rotonda de los toros / Lidl)",
   },
   {
     id: 1024,
