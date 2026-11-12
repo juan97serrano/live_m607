@@ -3,6 +3,8 @@ import { CAMARAS } from "@/lib/camaras";
 
 export const revalidate = 90;
 
+const DGT_PLACEHOLDER_BYTES = 32634;
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -27,7 +29,19 @@ export async function GET(
       );
     }
 
-    return new NextResponse(upstream.body, {
+    const imagen = await upstream.arrayBuffer();
+
+    // Cuando una cámara está caída, la DGT responde 200 con una imagen gris
+    // genérica de "IMAGEN NO DISPONIBLE" (siempre del mismo tamaño). La
+    // tratamos como error para que la tarjeta muestre "Cámara no disponible".
+    if (imagen.byteLength === DGT_PLACEHOLDER_BYTES) {
+      return NextResponse.json(
+        { error: "Cámara no disponible" },
+        { status: 502 }
+      );
+    }
+
+    return new NextResponse(imagen, {
       status: 200,
       headers: {
         "Content-Type": upstream.headers.get("content-type") ?? "image/jpeg",

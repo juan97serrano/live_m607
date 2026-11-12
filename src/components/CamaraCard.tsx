@@ -44,14 +44,19 @@ export default function CamaraCard({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-      <div className="flex items-baseline justify-between px-4 pt-3">
-        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+      <div className="flex items-baseline justify-between gap-2 px-4 pt-3">
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
           {camara.nombre}
-        </h2>
-        <span className="text-xs tabular-nums text-slate-500 dark:text-slate-400">
+        </h3>
+        <span className="shrink-0 text-xs tabular-nums text-slate-500 dark:text-slate-400">
           PK {camara.pk.toFixed(1)}
         </span>
       </div>
+      {camara.nota && (
+        <p className="px-4 text-xs text-slate-500 dark:text-slate-400">
+          {camara.nota}
+        </p>
+      )}
 
       <div className="relative mt-2 aspect-video w-full bg-slate-100 dark:bg-slate-800">
         <CamaraImage

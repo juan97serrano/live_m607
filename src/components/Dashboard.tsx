@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { CAMARAS } from "@/lib/camaras";
+import { CAMARAS, ZONAS } from "@/lib/camaras";
 import type { Incidencia } from "@/lib/datex";
 import CamaraCard from "./CamaraCard";
 import IncidentBanner from "./IncidentBanner";
@@ -71,11 +71,22 @@ export default function Dashboard() {
         </p>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {CAMARAS.map((camara) => (
-          <CamaraCard key={camara.id} camara={camara} tick={tick} />
-        ))}
-      </div>
+      <p className="text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+        Cámaras en orden del trayecto Colmenar Viejo → Madrid
+      </p>
+
+      {ZONAS.map((zona) => (
+        <section key={zona} className="flex flex-col gap-3">
+          <h2 className="px-1 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            {zona}
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {CAMARAS.filter((c) => c.zona === zona).map((camara) => (
+              <CamaraCard key={camara.id} camara={camara} tick={tick} />
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
